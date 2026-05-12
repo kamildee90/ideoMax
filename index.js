@@ -1,16 +1,22 @@
 const express = require('express');
-
 const app = express();
 
 app.use(express.json());
 
+// test czy serwer działa
 app.get('/', (req, res) => {
     res.send('Bot działa');
 });
 
-app.post('/discord', async (req, res) => {
+// 🔥 PING endpoint (ważne dla Render)
+app.get('/ping', (req, res) => {
+    res.send('pong');
+});
 
-    console.log(req.body);
+// webhook / endpoint np. Discord
+app.post('/discord', (req, res) => {
+
+    console.log('Nowe zgłoszenie:', req.body);
 
     res.json({
         success: true
@@ -21,5 +27,5 @@ app.post('/discord', async (req, res) => {
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, '0.0.0.0', () => {
-    console.log('Server started');
+    console.log('Server running on port ' + PORT);
 });
